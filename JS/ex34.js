@@ -19,6 +19,7 @@ const counter = ReactDOM.createRoot(document.querySelector(`#counter`));
 counter.render(<Counter></Counter>);
 
 // ===================================
+
 function Todo() {
     const [list, setList] = React.useState([]);
 
@@ -136,6 +137,71 @@ function Todo() {
         </>
     );
 }
-
 const todo = ReactDOM.createRoot(document.querySelector(`#todoList`));
 todo.render(<Todo></Todo>);
+
+// ===================================
+
+function Profile() {
+    const [data, setData] = React.useState(null);
+    React.useEffect(() => {
+        fetch(`https://jsonplaceholder.typicode.com/users/2`)
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+
+                if (!Array.isArray(res) && Object.keys(res).length)
+                    setData([...[res]]);
+                else if (res.length > 0) setData([...res]);
+                else setData(`fail`);
+            })
+            .catch((error) => {
+                console.log(error);
+                setData(`fail`);
+            });
+    }, []);
+
+    const infoList = [
+        `name`,
+        `username`,
+        `email`,
+        `phone`,
+        `website`,
+        `address`,
+    ];
+
+    return (
+        <ul className="profile-users">
+            {data === `fail` ? (
+                <li className="profile-user failed">there is no data</li>
+            ) : data === null ? (
+                <li className="profile-user loading">loading...</li>
+            ) : (
+                data.map((user, index) => {
+                    return (
+                        <li className="profile-user" key={index}>
+                            {infoList.map((value, infoIndex) => {
+                                return (
+                                    <div
+                                        className="profile-user-info"
+                                        key={infoIndex}
+                                    >
+                                        <span className="profile-title">
+                                            {`${value} : `}
+                                        </span>
+                                        {value === `address`
+                                            ? `${user.address.suite} - ${user.address.street} - ${user.address.city}`
+                                            : `${user[value]}`}
+                                    </div>
+                                );
+                            })}
+                        </li>
+                    );
+                })
+            )}
+        </ul>
+    );
+}
+
+const profile = ReactDOM.createRoot(document.querySelector(`#profile`));
+profile.render(<Profile></Profile>);
