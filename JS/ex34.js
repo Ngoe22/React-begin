@@ -145,7 +145,7 @@ todo.render(<Todo></Todo>);
 function Profile() {
     const [data, setData] = React.useState(null);
     React.useEffect(() => {
-        fetch(`https://jsonplaceholder.typicode.com/users/2`)
+        fetch(`https://jsonplaceholder.typicode.com/users/1`)
             .then((res) => res.json())
             .then((res) => {
                 console.log(res);
@@ -180,18 +180,18 @@ function Profile() {
                 data.map((user, index) => {
                     return (
                         <li className="profile-user" key={index}>
-                            {infoList.map((value, infoIndex) => {
+                            {infoList.map((infoName, infoIndex) => {
                                 return (
                                     <div
                                         className="profile-user-info"
                                         key={infoIndex}
                                     >
                                         <span className="profile-title">
-                                            {`${value} : `}
+                                            {`${infoName} : `}
                                         </span>
-                                        {value === `address`
+                                        {infoName === `address`
                                             ? `${user.address.suite} - ${user.address.street} - ${user.address.city}`
-                                            : `${user[value]}`}
+                                            : `${user[infoName]}`}
                                     </div>
                                 );
                             })}
@@ -205,3 +205,14 @@ function Profile() {
 
 const profile = ReactDOM.createRoot(document.querySelector(`#profile`));
 profile.render(<Profile></Profile>);
+
+// ===================================
+
+function Production() {
+    const [data, setData] = React.useState(null);
+
+    return <div></div>;
+}
+
+const products = ReactDOM.createRoot(document.querySelector(`#products`));
+products.render(<Production></Production>);

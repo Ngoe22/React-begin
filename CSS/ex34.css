@@ -170,14 +170,21 @@
 /* ================================== */
 
 #profile {
-    padding: 15px;
+    /* padding: 15px;
     border-radius: 5px;
     box-shadow: -1px 1px 2px 2px rgba(0, 0, 0, 0.4);
     width: fit-content;
     margin: auto;
     min-width: 300px;
     background-color: var(--dark-bg);
-    color: var(--white);
+    color: var(--white); */
+
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px dashed gray;
+    width: fit-content;
+    margin: auto;
+    background-color: rgba(247, 247, 247, 0.394);
 }
 
 .profile-users {
@@ -190,11 +197,15 @@
     display: flex;
     flex-direction: column;
     gap: 3px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: var(--dark-bg);
+    color: var(--white);
 }
 .profile-user:not(:last-child) {
-    padding-bottom: 15px;
     margin-bottom: 15px;
-    border-bottom: 1px dashed var(--white);
+    /* padding-bottom: 15px;
+    border-bottom: 1px dashed var(--white); */
 }
 
 .profile-title {
