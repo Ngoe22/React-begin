@@ -1,3 +1,7 @@
+body {
+    background-color: cadetblue;
+}
+
 #counter {
     padding: 15px;
     border-radius: 5px;
@@ -382,4 +386,76 @@
 .product-modal-close:hover {
     color: var(--white);
     background-color: black;
+}
+
+/* ================================== */
+
+#comment {
+    padding: 15px 20px;
+    border-radius: 20px;
+    border: 1px dashed gray;
+
+    background-color: rgba(247, 247, 247, 0.394);
+}
+
+.post {
+    padding: 10px;
+    background-color: var(--white);
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.comment-list {
+    padding: 10px;
+    background-color: var(--white);
+    border-radius: 5px;
+}
+
+.comment-item-head {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.comment-item-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    box-shadow: 0 0 2px 1px rgba(81, 85, 115, 0.95);
+    border-radius: 50%;
+    overflow: hidden;
+}
+.comment-item-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.comment-item-head-mid {
+    flex-grow: 1;
+}
+.comment-item-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.comment-item-email {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: rgb(152, 152, 152);
+}
+
+.comment-item-postTime {
+    font-size: 0.8rem;
+    font-style: italic;
+    font-weight: 600;
+    color: rgb(152, 152, 152);
+}
+
+.comment-item-body {
+    padding-left: 5px;
+    padding-bottom: 2px;
+    border-left: 1px solid rgb(122, 172, 211);
+    background-color: rgba(122, 172, 211, 0.3);
 }

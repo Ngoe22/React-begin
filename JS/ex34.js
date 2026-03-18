@@ -299,7 +299,57 @@ product.render(
 
 // ===================================
 
-function Comment() {}
+function Comment(props) {
+    return (
+        <>
+            <div className="post">i love meow </div>
+            <ul className="comment-list">
+                <li className="comment-item">
+                    <div className="comment-item-head">
+                        <div className="comment-item-avatar">
+                            <img src="https://robohash.org/xxx.png"></img>
+                        </div>
+                        <div className="comment-item-head-mid">
+                            <div className="comment-item-name">magne</div>
+                            <div className="comment-item-email">
+                                magne11@gmail.com
+                            </div>
+                        </div>
+                        <div className="comment-item-postTime">5m</div>
+                    </div>
+                    <div className="comment-item-body">
+                        qwehq qowi8sjd qw eoqiwe ajsdhasd qiowe12 1231 oaihsd123
+                        123
+                    </div>
+                </li>
+            </ul>
+            <form>
+                <input name="name" className="comment-post-name"></input>
+                <input name="email" className="comment-post-email"></input>
+                <textarea
+                    name="body"
+                    className="comment-post-content"
+                ></textarea>
+                <button className="comment-post-btn">Submit</button>
+            </form>
+        </>
+    );
+}
 
 const comment = ReactDOM.createRoot(document.querySelector(`#comment`));
 comment.render(<Comment></Comment>);
+
+// https://robohash.org/xxx.png
+// <ul className="comment-list">
+// <li className="comment-item">
+//     <div className="comment-item-head">
+//         <img src=""></img>
+//         <div className="comment-item-head-mid">
+//             <div className="comment-item-name"></div>
+//             <div className="comment-item-email"></div>
+//         </div>
+//         <div className="comment-item-postTime"></div>
+//     </div>
+//     <div className="comment-item-body"></div>
+// </li>
+// </ul>
