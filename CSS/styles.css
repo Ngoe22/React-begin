@@ -1,3 +1,8 @@
+body {
+    background-color: cadetblue;
+}
+
+
 * {
     font-family:
         system-ui,
@@ -11,6 +16,13 @@
         "Open Sans",
         "Helvetica Neue",
         sans-serif;
+}
+
+ul,
+li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 :root {

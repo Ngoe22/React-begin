@@ -95,6 +95,7 @@
 .todo-get {
     display: flex;
     gap: 3px;
+    margin-bottom: 10px;
 }
 
 .todo-get input {
@@ -115,8 +116,6 @@
 }
 
 .todo-list {
-    list-style: none;
-    padding: 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -179,7 +178,7 @@
     background-color: var(--dark-bg);
     color: var(--white); */
 
-    padding: 25px;
+    padding: 15px 20px;
     border-radius: 20px;
     border: 1px dashed gray;
     width: fit-content;
@@ -190,7 +189,6 @@
 .profile-users {
     padding: 0;
     margin: 0;
-    list-style: none;
 }
 
 .profile-user {
@@ -198,14 +196,19 @@
     flex-direction: column;
     gap: 3px;
     padding: 15px;
-    border-radius: 5px;
+    border-radius: 20px;
     background-color: var(--dark-bg);
     color: var(--white);
+    transition: 0.3s;
 }
 .profile-user:not(:last-child) {
     margin-bottom: 15px;
     /* padding-bottom: 15px;
     border-bottom: 1px dashed var(--white); */
+}
+.profile-user:hover {
+    box-shadow: -1px 1px 3px 2px rgba(0, 0, 0, 0.4);
+    transform: translateY(-3px);
 }
 
 .profile-title {
@@ -215,4 +218,168 @@
     font-weight: 600;
     font-style: italic;
     color: var(--orange);
+}
+
+.profile-user-info {
+    transition: 0.3s;
+}
+.profile-user-info:hover {
+    text-shadow: 1px 0px;
+    transform: translateX(2px);
+}
+
+/* ================================== */
+
+#product {
+    padding: 15px 20px;
+    border-radius: 20px;
+    border: 1px dashed gray;
+
+    background-color: rgba(247, 247, 247, 0.394);
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.product-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex-shrink: 0;
+    flex-grow: 1;
+
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--dark-bg);
+    color: var(--white);
+    transition: 0.3s;
+    overflow: hidden;
+    width: 27%;
+    transition: 0.3s;
+}
+/* @media (max-width: 968px) {
+    .product-item {
+        width: 30%;
+    }
+} */
+@media (max-width: 868px) {
+    .product-item {
+        min-width: 40%;
+    }
+}
+@media (max-width: 500px) {
+    .product-item {
+        min-width: 90%;
+    }
+}
+
+.product-item:hover {
+    translate: 0 -5px;
+    box-shadow: -1px 1px 3px 2px rgba(0, 0, 0, 0.4);
+}
+.product-item:hover .product-id {
+    color: var(--white);
+}
+.product-item:hover .product-title {
+    color: var(--orange);
+    border-color: var(--white);
+}
+
+.product-id {
+    margin-left: auto;
+    color: var(--orange);
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: inherit;
+}
+.product-id::before {
+    content: "ID :  #";
+}
+
+.product-title {
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--orange);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: inherit;
+}
+
+.product-learnMore {
+    background: rgba(81, 85, 115, 0.9);
+    border: none;
+    margin-top: auto;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 0 5px 30px rgba(81, 85, 115, 0.95);
+    transition: 0.3s;
+}
+
+.product-learnMore:hover {
+    color: var(--orange);
+}
+
+.product-modal {
+    position: fixed;
+    inset: 0 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.product-modal-box {
+    position: relative;
+    background-color: var(--white);
+    width: min(600px, 90%);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.product-modal-id {
+    /* width: fit-content;
+    margin-left: auto; */
+    color: var(--orange);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: auto;
+}
+.product-modal-id::before {
+    content: "ID :  #";
+}
+
+.product-modal-title {
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--orange);
+    margin-bottom: 10px;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.product-modal-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: none;
+    border: 1px solid gray;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.product-modal-close:hover {
+    color: var(--white);
+    background-color: black;
 }

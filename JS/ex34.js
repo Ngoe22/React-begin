@@ -142,10 +142,10 @@ todo.render(<Todo></Todo>);
 
 // ===================================
 
-function Profile() {
+function Profile(props) {
     const [data, setData] = React.useState(null);
     React.useEffect(() => {
-        fetch(`https://jsonplaceholder.typicode.com/users/1`)
+        fetch(props.api)
             .then((res) => res.json())
             .then((res) => {
                 console.log(res);
@@ -173,9 +173,9 @@ function Profile() {
     return (
         <ul className="profile-users">
             {data === `fail` ? (
-                <li className="profile-user failed">there is no data</li>
+                <li className="profile-user-failed">there is no data</li>
             ) : data === null ? (
-                <li className="profile-user loading">loading...</li>
+                <li className="profile-user-loading">loading...</li>
             ) : (
                 data.map((user, index) => {
                     return (
@@ -204,15 +204,102 @@ function Profile() {
 }
 
 const profile = ReactDOM.createRoot(document.querySelector(`#profile`));
-profile.render(<Profile></Profile>);
+profile.render(
+    <Profile api="https://jsonplaceholder.typicode.com/users/1"></Profile>,
+);
 
 // ===================================
 
-function Production() {
+function Production(props) {
     const [data, setData] = React.useState(null);
+    const [modal, setModal] = React.useState(null); // index of data
 
-    return <div></div>;
+    React.useEffect(() => {
+        fetch(props.api)
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                setData(res);
+            })
+            .catch((error) => {
+                console.log(`data:fail`, error);
+                setData(`fail`);
+            });
+    }, []);
+
+    console.log(props.api);
+
+    return (
+        <>
+            <ul className="product-list">
+                {data === `fail`
+                    ? `loading fail`
+                    : data === null
+                      ? `Loading...`
+                      : data.length === 0
+                        ? "There is no production"
+                        : data.map((item, itemIndex) => {
+                              let body = item.body.split(``);
+                              let bodyText = ``;
+                              if (body.length > 100) {
+                                  bodyText = body.slice(0, 99).join(``) + `...`;
+                              } else {
+                                  bodyText = `item.body`;
+                              }
+
+                              return (
+                                  <li className="product-item" key={itemIndex}>
+                                      <div className="product-id">
+                                          {item.id}
+                                      </div>
+                                      <div
+                                          className="product-title"
+                                          title={item.title}
+                                      >
+                                          {item.title}
+                                      </div>
+                                      <div className="product-preview">
+                                          {bodyText}
+                                      </div>
+                                      <button
+                                          className="product-learnMore"
+                                          onClick={() => setModal(item)}
+                                      >
+                                          Learn more
+                                      </button>
+                                  </li>
+                              );
+                          })}
+            </ul>
+            {!modal || !data ? (
+                ``
+            ) : (
+                <div className="product-modal">
+                    <div className="product-modal-box">
+                        <div className="product-modal-id">{modal.id}</div>
+                        <div className="product-modal-title">{modal.title}</div>
+                        <div className="product-modal-body">{modal.body}</div>
+                        <button
+                            className="product-modal-close"
+                            onClick={() => setModal(null)}
+                        >
+                            ✖
+                        </button>
+                    </div>
+                </div>
+            )}
+        </>
+    );
 }
 
-const products = ReactDOM.createRoot(document.querySelector(`#products`));
-products.render(<Production></Production>);
+const product = ReactDOM.createRoot(document.querySelector(`#product`));
+product.render(
+    <Production api="https://jsonplaceholder.typicode.com/posts?_limit=12"></Production>,
+);
+
+// ===================================
+
+function Comment() {}
+
+const comment = ReactDOM.createRoot(document.querySelector(`#comment`));
+comment.render(<Comment></Comment>);
