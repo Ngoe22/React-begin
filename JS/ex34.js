@@ -297,9 +297,28 @@ product.render(
 
 // ===================================
 
+const mainNotificationNode = document.createElement(`div`);
+mainNotificationNode.className = `mainNotificationNode`;
+
+function mainNotification(text, color) {
+    document.body.append(mainNotificationNode);
+    setTimeout(() => {
+        mainNotificationNode.classList.add(`show`);
+        mainNotificationNode.classList.add(color);
+        mainNotificationNode.textContent = text;
+    }, 0);
+
+    setTimeout(() => {
+        mainNotificationNode.classList.remove(`show`);
+        mainNotificationNode.textContent = ``;
+        mainNotificationNode.remove();
+    }, 4000);
+}
+
 function Comment(props) {
     const [data, setData] = React.useState(null);
-    if (!Comment.input) Comment.input = {};
+    const [input, setInput] = React.useState({ name: "", email: "", body: "" });
+    // if (!Comment.input) Comment.input = {};
 
     React.useEffect(() => {
         fetch(props.api)
@@ -310,32 +329,14 @@ function Comment(props) {
             });
     }, []);
 
-    function getRandomM() {
-        let num = Math.floor(Math.random() * 4000);
-        let tail = `m`;
-        switch (true) {
-            case num > 1439:
-                num = Math.floor(num / 1440);
-                tail = `d`;
-                break;
-            case num > 59:
-                num = Math.floor(num / 60);
-                tail = `h`;
-                break;
-        }
-
-        return num + tail;
-    }
-
     let commentList = data
         ? data.map((item) => {
-              getRandomM();
               return (
                   <li className="comment-item" key={item.id}>
                       <div className="comment-item-head">
                           <div className="comment-item-avatar">
                               <img
-                                  src={`https://robohash.org/${String(Math.random())}.png`}
+                                  src={`https://robohash.org/${item.id}.png`}
                               ></img>
                           </div>
                           <div className="comment-item-head-mid">
@@ -347,14 +348,16 @@ function Comment(props) {
                               </div>
                           </div>
                           <div className="comment-item-postTime">
-                              {item.postTime ? item.postTime : getRandomM()}
+                              {item.postTime
+                                  ? item.postTime
+                                  : item.name.split(``).length + `m`}
                           </div>
                       </div>
                       <div className="comment-item-body">{item.body}</div>
                   </li>
               );
           })
-        : null;
+        : `loading.....`;
 
     return (
         <>
@@ -364,15 +367,18 @@ function Comment(props) {
                 <label className="comment-post-name">
                     name{" "}
                     <input
-                        onChange={(e) => (Comment.input.name = e.target)}
-                        name="name"
+                        onChange={(e) => {
+                            setInput({ ...input, name: e.target.value });
+                        }}
                         className="input-underline"
                     ></input>
                 </label>
                 <label className="comment-post-email">
                     email
                     <input
-                        onChange={(e) => (Comment.input.email = e.target)}
+                        onChange={(e) => {
+                            setInput({ ...input, email: e.target.value });
+                        }}
                         name="email"
                         className="input-underline"
                     ></input>
@@ -380,32 +386,27 @@ function Comment(props) {
                 <div className="comment-post-content">
                     <textarea
                         name="body"
-                        onChange={(e) => (Comment.input.body = e.target)}
+                        onChange={(e) => {
+                            setInput({ ...input, body: e.target.value });
+                        }}
                     ></textarea>
                     <button
                         onClick={() => {
-                            const newComment = {
-                                id: Math.random() * 1000000,
-                                postTime: `just now`,
-                            };
+                            if (!input.name || !input.email || !input.body)
+                                return mainNotification(
+                                    `Complete info before post !!!`,
+                                    `red`,
+                                );
 
-                            if (!Comment.input.name.value) {
-                                redShakeAn(Comment.input.name);
-                            }
-
-                            return;
                             setData([
                                 {
-                                    name: Comment.input.name.value,
-                                    email: Comment.input.email.value,
-                                    body: Comment.input.body.value,
+                                    id: Math.random() * 10000,
+                                    name: input.name,
+                                    email: input.email,
+                                    body: input.body,
                                 },
                                 ...data,
                             ]);
-
-                            Comment.input.name.value = ``;
-                            Comment.input.name.email = ``;
-                            Comment.input.name.body = ``;
                         }}
                         className="comment-post-btn"
                     >
@@ -421,24 +422,3 @@ const comment = ReactDOM.createRoot(document.querySelector(`#comment`));
 comment.render(
     <Comment api="https://jsonplaceholder.typicode.com/comments?postId=1"></Comment>,
 );
-
-// <ul className="comment-list">
-//     <li className="comment-item">
-//         <div className="comment-item-head">
-//             <div className="comment-item-avatar">
-//                 <img src="https://robohash.org/xxx.png"></img>
-//             </div>
-//             <div className="comment-item-head-mid">
-//                 <div className="comment-item-name">magne</div>
-//                 <div className="comment-item-email">
-//                     magne11@gmail.com
-//                 </div>
-//             </div>
-//             <div className="comment-item-postTime">5m</div>
-//         </div>
-//         <div className="comment-item-body">
-//             qwehq qowi8sjd qw eoqiwe ajsdhasd qiowe12 1231 oaihsd123
-//             123
-//         </div>
-//     </li>
-// </ul>

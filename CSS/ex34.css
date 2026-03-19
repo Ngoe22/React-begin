@@ -503,3 +503,30 @@ body {
 .comment-post-btn {
     cursor: pointer;
 }
+
+.mainNotificationNode {
+    padding: 10px 20px;
+    box-shadow: -2px 2px 3px 1px rgba(0, 0, 0, 0.5);
+    position: fixed;
+
+    top: 40px;
+    z-index: 98;
+    font-weight: 600;
+    font-size: 1.8rem;
+    right: 10%;
+    color: white;
+    background-color: rgba(128, 128, 128, 0.9);
+    /* background-color: white; */
+    transition: 0.4s;
+    transform: translateX(-100vw);
+}
+.mainNotificationNode.red {
+    background-color: rgba(248, 66, 66, 0.95);
+}
+.mainNotificationNode.green {
+    background-color: rgba(66, 188, 84, 0.8);
+}
+
+.mainNotificationNode.show {
+    transform: translateX(0);
+}
