@@ -300,7 +300,7 @@ product.render(
 const mainNotificationNode = document.createElement(`div`);
 mainNotificationNode.className = `mainNotificationNode`;
 
-function mainNotification(text, color) {
+function warning(text, color) {
     document.body.append(mainNotificationNode);
     setTimeout(() => {
         mainNotificationNode.classList.add(`show`);
@@ -368,49 +368,59 @@ function Comment(props) {
                     name{" "}
                     <input
                         onChange={(e) => {
-                            setInput({ ...input, name: e.target.value });
+                            setInput({ ...input, name: e.target });
                         }}
                         className="input-underline"
                     ></input>
                 </label>
+
                 <label className="comment-post-email">
                     email
                     <input
                         onChange={(e) => {
-                            setInput({ ...input, email: e.target.value });
+                            setInput({ ...input, email: e.target });
                         }}
                         name="email"
                         className="input-underline"
                     ></input>
                 </label>
+
                 <div className="comment-post-content">
                     <textarea
                         name="body"
                         onChange={(e) => {
-                            setInput({ ...input, body: e.target.value });
+                            setInput({ ...input, body: e.target });
                         }}
                     ></textarea>
                     <button
                         onClick={() => {
-                            if (!input.name || !input.email || !input.body)
-                                return mainNotification(
+                            if (
+                                !input.name?.value ||
+                                !input.email?.value ||
+                                !input.body?.value
+                            )
+                                return warning(
                                     `Complete info before post !!!`,
                                     `red`,
                                 );
 
                             setData([
+                                ...data,
                                 {
                                     id: Math.random() * 10000,
-                                    name: input.name,
-                                    email: input.email,
-                                    body: input.body,
+                                    name: input.name.value,
+                                    email: input.email.value,
+                                    body: input.body.value,
                                 },
-                                ...data,
                             ]);
+                            // reset input
+                            input.name.value = ``;
+                            input.email.value = ``;
+                            input.body.value = ``;
                         }}
                         className="comment-post-btn"
                     >
-                        Submit
+                        Post
                     </button>
                 </div>
             </div>
@@ -422,3 +432,39 @@ const comment = ReactDOM.createRoot(document.querySelector(`#comment`));
 comment.render(
     <Comment api="https://jsonplaceholder.typicode.com/comments?postId=1"></Comment>,
 );
+
+// ===================================
+
+const weatherData = {
+    hanoi: { city: "Hà Nội", temp: 28, weather: "Nắng", humidity: 65 },
+    hcm: { city: "TP.HCM", temp: 32, weather: "Có mây", humidity: 78 },
+    danang: { city: "Đà Nẵng", temp: 30, weather: "Mưa nhẹ", humidity: 82 },
+};
+
+function Weather() {
+    const [city, setCity] = React.useState(null);
+
+    return (
+        <div className="weather-section">
+            <div className="wether-select">
+                <ul className="wether-select-list">
+                    <li className="wether-select-item"></li>
+                </ul>
+            </div>
+            <div className="wether-body">
+                <div className="wether-body-left">
+                    <div className="wether-temperature">28</div>
+                </div>
+                <div className="wether-body-right">
+                    <div className="wether-city">Hanoi</div>
+                    <div className="weather-weather">Nắng</div>
+                    <div className="weather-humidity">65</div>
+                    <button className="weather-refresh">Làm mới</button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+const weather = ReactDOM.createRoot(document.querySelector(`#weather`));
+weather.render(<Weather></Weather>);
