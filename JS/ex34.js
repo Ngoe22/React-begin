@@ -447,8 +447,11 @@ function Weather() {
     return (
         <div className="weather-section">
             <div className="wether-select">
+                <div className="wether-select-current"> -- </div>
                 <ul className="wether-select-list">
-                    <li className="wether-select-item"></li>
+                    <li className="wether-select-item">hanoi1</li>
+                    <li className="wether-select-item">hanoi2</li>
+                    <li className="wether-select-item">hanoi3</li>
                 </ul>
             </div>
             <div className="wether-body">
@@ -458,7 +461,7 @@ function Weather() {
                 <div className="wether-body-right">
                     <div className="wether-city">Hanoi</div>
                     <div className="weather-weather">Nắng</div>
-                    <div className="weather-humidity">65</div>
+                    <div className="weather-humidity">Độ ẩm : 65%</div>
                     <button className="weather-refresh">Làm mới</button>
                 </div>
             </div>
