@@ -443,11 +443,19 @@ const weatherData = {
 
 function Weather() {
     const [city, setCity] = React.useState(null);
+    const [showList, setShowList] = React.useState(false);
 
     return (
-        <div className="weather-section">
-            <div className="wether-select">
-                <div className="wether-select-current"> -- </div>
+        <div
+            className="weather-section"
+            onClick={(e) => {
+                const classList = e.target.classList;
+                if (classList.contains("wether-city")) {
+                    setShowList(true);
+                }
+            }}
+        >
+            <div className={`wether-select-list-bg ${showList ? `show` : ``}`}>
                 <ul className="wether-select-list">
                     <li className="wether-select-item">hanoi1</li>
                     <li className="wether-select-item">hanoi2</li>
@@ -456,11 +464,11 @@ function Weather() {
             </div>
             <div className="wether-body">
                 <div className="wether-body-left">
-                    <div className="wether-temperature">28</div>
+                    <div className="wether-temperature">28°</div>
                 </div>
                 <div className="wether-body-right">
                     <div className="wether-city">Hanoi</div>
-                    <div className="weather-weather">Nắng</div>
+                    <div className="weather-weather">☀️ Nắng</div>
                     <div className="weather-humidity">Độ ẩm : 65%</div>
                     <button className="weather-refresh">Làm mới</button>
                 </div>

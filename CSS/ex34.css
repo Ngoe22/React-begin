@@ -567,6 +567,8 @@ body {
     border-radius: 20px;
     border: 1px dashed gray;
     background-color: rgba(247, 247, 247, 0.394);
+    margin: auto;
+    width: fit-content;
 }
 
 .weather-section {
@@ -575,6 +577,8 @@ body {
     margin-bottom: 5px;
     background-color: var(--dark-bg);
     color: var(--white);
+    position: relative;
+    /* overflow: hidden; */
 }
 
 .wether-body {
@@ -585,4 +589,42 @@ body {
 
 .wether-temperature {
     font-size: 5rem;
+}
+
+.wether-body-right {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.wether-select-list-bg {
+    display: flex;
+    justify-content: end;
+
+    position: absolute;
+    inset: 0 0 0 0;
+    z-index: 10;
+
+    border-radius: 5px;
+    box-shadow: -2px 0px 2px 0px rgba(0, 0, 0, 0.5);
+
+    translate: 110%;
+    transition: 0.3s;
+
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.wether-select-list-bg.show {
+    translate: 0%;
+}
+
+.wether-select-list {
+    padding: 10px;
+    width: fit-content;
+    background: var(--dark-bg);
+}
+
+.wether-city {
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--blue);
+    cursor: pointer;
 }
