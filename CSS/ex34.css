@@ -618,9 +618,18 @@ body {
 }
 
 .wether-select-list {
-    padding: 10px;
-    width: fit-content;
+    padding: 0;
     background: var(--dark-bg);
+    overflow: auto;
+    min-width: 55%;
+}
+
+.wether-select-item {
+    padding: 5px;
+    cursor: pointer;
+}
+.wether-select-item:hover {
+    background-color: var(--blue);
 }
 
 .wether-city {

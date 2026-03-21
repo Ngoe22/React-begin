@@ -456,7 +456,16 @@ function Weather() {
             }}
         >
             <div className={`wether-select-list-bg ${showList ? `show` : ``}`}>
-                <ul className="wether-select-list">
+                <ul
+                    className="wether-select-list"
+                    onClick={(e) => {
+                        const node = e.target;
+                        setShowList(false);
+                    }}
+                >
+                    <li className="wether-select-item">hanoi1</li>
+                    <li className="wether-select-item">hanoi2</li>
+                    <li className="wether-select-item">hanoi3</li>
                     <li className="wether-select-item">hanoi1</li>
                     <li className="wether-select-item">hanoi2</li>
                     <li className="wether-select-item">hanoi3</li>
