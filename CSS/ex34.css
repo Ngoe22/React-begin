@@ -578,13 +578,13 @@ body {
     background-color: var(--dark-bg);
     color: var(--white);
     position: relative;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 .wether-body {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
 }
 
 .wether-temperature {
@@ -612,6 +612,7 @@ body {
     transition: 0.3s;
 
     background-color: rgba(0, 0, 0, 0.3);
+
 }
 .wether-select-list-bg.show {
     translate: 0%;
@@ -635,5 +636,13 @@ body {
 .wether-city {
     padding-bottom: 3px;
     border-bottom: 1px solid var(--blue);
+    cursor: pointer;
+}
+
+.weather-refresh {
+    background: transparent;
+    border-radius: 3px;
+    border: 1px dashed var(--blue);
+    color: white;
     cursor: pointer;
 }
