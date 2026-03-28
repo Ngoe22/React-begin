@@ -22,11 +22,19 @@ counter.render(<Counter></Counter>);
 
 function Todo() {
     const [list, setList] = React.useState([]);
+    const [newTask, setNewTask] = React.useState(``);
+
+    const [editContent, setEditContent] = React.useState(``);
+    const [editId, setEditId] = React.useState(``);
 
     const length = list.length;
     const completed = list.reduce((acc, value) => {
         return acc + value.completed;
     }, 0);
+
+    function createId() {
+        return `${Math.floor(Math.random() * 1000)}-${Date.now()} `;
+    }
 
     return (
         <>
@@ -37,19 +45,24 @@ function Todo() {
             </div>
 
             <div className="todo-get">
-                <input></input>
+                <input
+                    value={newTask}
+                    onChange={(e) => {
+                        setNewTask(e.target.value);
+                    }}
+                ></input>
                 <button
                     onClick={(e) => {
-                        const inputNode = e.target.previousElementSibling;
-                        if (!inputNode.value) return alert(`Empty title`);
+                        if (!newTask) return alert(`Enter your task title`);
                         setList([
                             ...list,
                             {
-                                title: inputNode.value,
+                                title: newTask,
                                 completed: false,
+                                id: createId(),
                             },
                         ]);
-                        inputNode.value = ``;
+                        setNewTask(``);
                     }}
                 >
                     Add
@@ -58,49 +71,51 @@ function Todo() {
 
             <ul className="todo-list">
                 {list.map((item, index) => {
+                    const onEditing = editId === item.id;
+                    const Tag = onEditing ? "input" : `div`;
+
                     return (
-                        <li className="todo-item" key={index}>
-                            <span
-                                className={
-                                    `todo-item-title ` +
-                                    (item.completed ? `done` : ``)
+                        <li className="todo-item" key={item.id}>
+                            <Tag
+                                className={`todo-item-title${item.completed ? ` done` : ``}${onEditing ? ` onEditing` : ``}`}
+                                contentEditable={onEditing}
+                                defaultValue={onEditing ? item.title : null}
+                                onChange={
+                                    onEditing
+                                        ? (e) => {
+                                              setEditContent(e.target.value);
+                                          }
+                                        : null
                                 }
                             >
-                                {item.title}
-                            </span>
+                                {onEditing ? null : item.title}
+                            </Tag>
 
-                            <span
+                            <button
                                 className="todo-item-edit"
                                 onClick={(e) => {
-                                    const parent = e.target.closest(`li`);
-                                    const title =
-                                        parent.querySelector(
-                                            `.todo-item-title`,
-                                        );
-                                    if (title.contentEditable === `true`) {
-                                        const newTitle =
-                                            title.textContent.trim();
+                                    if (onEditing) {
                                         setList(
-                                            list.map((value, titleIndex) => {
-                                                if (titleIndex === index) {
-                                                    value.title = newTitle;
+                                            list.map((value) => {
+                                                if (editId === value.id) {
+                                                    value.title = editContent;
                                                 }
                                                 return value;
                                             }),
                                         );
-                                        title.contentEditable = false;
-                                        e.target.textContent = `edit`;
-                                        return;
+
+                                        setEditContent(``);
+                                        setEditId(``);
+                                    } else {
+                                        setEditContent(item.title);
+                                        setEditId(item.id);
                                     }
-                                    e.target.textContent = `save`;
-                                    title.contentEditable = true;
-                                    title.focus();
                                 }}
                             >
-                                edit
-                            </span>
+                                {onEditing ? `save` : `edit`}
+                            </button>
 
-                            <span
+                            <button
                                 className={`todo-item-status ${item.completed ? `done` : `undone`}`}
                                 onClick={() => {
                                     setList(
@@ -115,9 +130,9 @@ function Todo() {
                                 }}
                             >
                                 {item.completed ? `undone` : `done`}
-                            </span>
+                            </button>
 
-                            <span
+                            <button
                                 className="todo-item-delete"
                                 onClick={() => {
                                     setList(
@@ -129,7 +144,7 @@ function Todo() {
                                 }}
                             >
                                 delete
-                            </span>
+                            </button>
                         </li>
                     );
                 })}
@@ -318,6 +333,7 @@ function warning(text, color) {
 function Comment(props) {
     const [data, setData] = React.useState(null);
     const [input, setInput] = React.useState({ name: "", email: "", body: "" });
+
     // if (!Comment.input) Comment.input = {};
 
     React.useEffect(() => {
@@ -360,15 +376,15 @@ function Comment(props) {
         : `loading.....`;
 
     return (
-        <>
-            <div className="post">i love meow </div>
+        <div className="comment-wrap">
             <ul className="comment-list">{commentList}</ul>
             <div className="comment-post-form">
                 <label className="comment-post-name">
                     name{" "}
                     <input
+                        value={input.name}
                         onChange={(e) => {
-                            setInput({ ...input, name: e.target });
+                            setInput({ ...input, name: e.target.value });
                         }}
                         className="input-underline"
                     ></input>
@@ -377,8 +393,9 @@ function Comment(props) {
                 <label className="comment-post-email">
                     email
                     <input
+                        value={input.email}
                         onChange={(e) => {
-                            setInput({ ...input, email: e.target });
+                            setInput({ ...input, email: e.target.value });
                         }}
                         name="email"
                         className="input-underline"
@@ -388,17 +405,14 @@ function Comment(props) {
                 <div className="comment-post-content">
                     <textarea
                         name="body"
+                        value={input.body}
                         onChange={(e) => {
-                            setInput({ ...input, body: e.target });
+                            setInput({ ...input, body: e.target.value });
                         }}
                     ></textarea>
                     <button
                         onClick={() => {
-                            if (
-                                !input.name?.value ||
-                                !input.email?.value ||
-                                !input.body?.value
-                            )
+                            if (!input.name || !input.email || !input.body)
                                 return warning(
                                     `Complete info before post !!!`,
                                     `red`,
@@ -408,15 +422,13 @@ function Comment(props) {
                                 ...data,
                                 {
                                     id: Math.random() * 10000,
-                                    name: input.name.value,
-                                    email: input.email.value,
-                                    body: input.body.value,
+                                    name: input.name,
+                                    email: input.email,
+                                    body: input.body,
                                 },
                             ]);
                             // reset input
-                            input.name.value = ``;
-                            input.email.value = ``;
-                            input.body.value = ``;
+                            setInput({ name: "", email: "", body: "" });
                         }}
                         className="comment-post-btn"
                     >
@@ -424,7 +436,7 @@ function Comment(props) {
                     </button>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 
@@ -496,7 +508,8 @@ function Weather() {
             <div className="wether-body">
                 <div className="wether-body-left">
                     <div className="wether-temperature">
-                        {city ? data[city].temp : `0`}
+                        {`${city ? data[city].temp : `0`}`}
+                        <span>°C</span>
                     </div>
                 </div>
                 <div className="wether-body-right">
