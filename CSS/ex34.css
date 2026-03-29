@@ -1,15 +1,22 @@
 body {
     background-image: url(../img/34/bg.jpg);
-    background-repeat: repeat;
-    background-size: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
 }
 
 #counter {
     padding: 15px;
     border-radius: 5px;
     box-shadow: -1px 1px 2px 2px rgba(0, 0, 0, 0.4);
-    width: fit-content;
     margin: auto;
+    background: rgba(255, 255, 255, 0.3);
+}
+.counter {
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: -1px 1px 2px 2px rgba(0, 0, 0, 0.4);
 
     background-color: var(--dark-bg);
     color: var(--white);
@@ -329,14 +336,14 @@ body {
 }
 
 .product-learnMore {
-    background: rgba(81, 85, 115, 0.9);
+    background: rgba(92, 95, 117, 0.9);
     border: none;
     margin-top: auto;
     color: white;
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
-    box-shadow: 0 0 5px 30px rgba(81, 85, 115, 0.95);
+    box-shadow: 0 0 5px 30px rgba(92, 95, 117, 0.9);
     transition: 0.3s;
 }
 

@@ -22,7 +22,7 @@ li {
 }
 
 :root {
-    --dark-bg: rgb(52, 63, 84);
+    --dark-bg: rgb(40 61 78);
     --red: rgb(230, 80, 80);
     --gray: rgb(151, 151, 151);
     --green: rgb(108, 205, 108);
@@ -44,14 +44,14 @@ li {
 }
 
 *::-webkit-scrollbar {
-  width: 6px;
+    width: 6px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background: rgba(186, 186, 186, 0.7);
-  border-radius: 10px;
+    background: rgba(186, 186, 186, 0.7);
+    border-radius: 10px;
 }
 
 *::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
